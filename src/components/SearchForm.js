@@ -1,17 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import WeatherCard from "./WeatherCard";
 import { fetchWeatherAPI } from "../utils/weatherApi";
-import { fromAddress } from "react-geocode";
-
-import HourlyCard from "./HourlyCard";
 
 const SearchForm = () => {
   const [currentWeather, setCurrentWeather] = useState({});
   const [location, setLocation] = useState("");
-  const [latLng, setLatLng] = useState({
-    lat: "",
-    lng: "",
-  });
+
   const str = useRef();
 
   const handelOnSubmit = async (e) => {
@@ -72,11 +66,6 @@ const SearchForm = () => {
         <hr />
         <div className="row">
           <WeatherCard currentWeather={currentWeather} location={location} />
-        </div>
-        <div className="row">
-          <div className="col">
-            <HourlyCard condition={currentWeather?.condition} latLng={latLng} />
-          </div>
         </div>
       </div>
     </div>
