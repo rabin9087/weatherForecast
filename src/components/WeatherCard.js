@@ -36,10 +36,7 @@ const WeatherCard = ({ currentWeather, location }) => {
   };
   const closeModal = () => {
     setIsModalOpen(false);
-    console.log(" I am clicked");
   };
-
-  console.log(isModalOpen);
 
   return (
     <>
@@ -47,7 +44,7 @@ const WeatherCard = ({ currentWeather, location }) => {
       {isModalOpen && (
         <ReactModal
           isOpen={isModalOpen}
-          // onAfterOpen={afterOpenModal}
+          ariaHideApp={false}
           onRequestClose={closeModal}
         >
           <ModalCard
@@ -117,7 +114,7 @@ const WeatherCard = ({ currentWeather, location }) => {
               {wind_dir}
             </div>
           </div>
-          <div style={{textAlign:'center', paddingTop: '1rem'}}>
+          <div style={{ textAlign: "center", paddingTop: "1rem" }}>
             <button
               className="btn"
               onClick={openModal}

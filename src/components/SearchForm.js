@@ -21,20 +21,8 @@ const SearchForm = () => {
       const response = await fetchWeatherAPI(city);
 
       if (response) {
-        console.log("currentWeather", response);
         setCurrentWeather(response.current);
         setLocation(response.location);
-
-        fromAddress(city)
-          .then(({ results }) => {
-            const { lat, lng } = results[0].geometry.location;
-            console.log(lat, lng);
-            setLatLng({ lat: lat, lng: lng });
-          })
-          .catch(console.error);
-      } else {
-        alert("Search for different city");
-        str.current.value = "";
       }
     } else {
       alert("Enter city name ");

@@ -1,12 +1,6 @@
 import React from "react";
 
-const ModalCard = ({
-  closeModal,
-  currentWeather,
-  location,
-  setIsModalOpen,
-}) => {
-  console.log("ModalData", currentWeather);
+const ModalCard = ({ closeModal, currentWeather, location }) => {
   return (
     <div style={{ background: "yellow" }}>
       <h1
