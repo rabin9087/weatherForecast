@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import WeatherCard from "./WeatherCard";
-import { fetchWeatherAPI } from "../utils/weatherApi";
+import { fetchWeatherAPI, fetchWeatherByLocation } from "../utils/weatherApi";
 
 const SearchForm = () => {
   const [currentWeather, setCurrentWeather] = useState({});
   const [location, setLocation] = useState("");
+  const [hourlyData, setHourlyData] = useState([]);
 
   const str = useRef();
 
@@ -13,10 +14,13 @@ const SearchForm = () => {
     const city = str.current.value;
     if (city !== "") {
       const response = await fetchWeatherAPI(city);
-
-      if (response) {
+      console.log("Response", response);
+      const hourlyResponse = await fetchWeatherByLocation(city);
+      if (response && hourlyResponse) {
         setCurrentWeather(response.current);
         setLocation(response.location);
+        setHourlyData(hourlyResponse?.forecast?.items);
+        console.log("HourlyDataResp", hourlyData);
       }
     } else {
       alert("Enter city name ");
@@ -26,8 +30,10 @@ const SearchForm = () => {
   useEffect(() => {
     (async () => {
       const response = await fetchWeatherAPI(city);
-      if (response) {
+      const hourlyResponse = await fetchWeatherByLocation(city);
+      if (response && hourlyResponse) {
         setCurrentWeather(response.current);
+        setHourlyData(hourlyResponse?.forecast?.items);
         setLocation(response.location);
       } else {
       }
@@ -65,7 +71,11 @@ const SearchForm = () => {
         </div>
         <hr />
         <div className="row">
-          <WeatherCard currentWeather={currentWeather} location={location} />
+          <WeatherCard
+            currentWeather={currentWeather}
+            location={location}
+            hourlyData={hourlyData}
+          />
         </div>
       </div>
     </div>

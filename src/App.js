@@ -1,7 +1,8 @@
 
 import SearchForm from "./components/SearchForm";
-function App() {
+import './App.css'; 
 
+function App() {
   return (
     <div className="bg-primary text-white min-vh-100">
 

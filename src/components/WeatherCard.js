@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import ReactModal from "react-modal";
 import ModalCard from "./ModalCard";
+import HourlyCard from "./hourCard/HourlyCard";
 
-const WeatherCard = ({ currentWeather, location }) => {
+const WeatherCard = ({ currentWeather, location, hourlyData }) => {
   const monthName = [
     "January",
     "February",
@@ -17,7 +18,8 @@ const WeatherCard = ({ currentWeather, location }) => {
     "November",
     "December",
   ];
-
+  const hours = new Date().getHours();
+  const minute = new Date().getMinutes();
   const year = new Date().getUTCFullYear();
   const date = new Date().getDate();
   const month = new Date().getUTCMonth();
@@ -28,6 +30,7 @@ const WeatherCard = ({ currentWeather, location }) => {
   const humidity = currentWeather?.humidity;
   const wind_kph = currentWeather?.wind_kph;
   const wind_dir = currentWeather?.wind_dir;
+  const locatTime = location?.localtime;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -72,7 +75,8 @@ const WeatherCard = ({ currentWeather, location }) => {
               </svg>
             </div>
             <div className="col">
-              {monthName[month]}, {date} - {year}
+              {monthName[locatTime?.slice(5, 7) - 1]}, {locatTime?.slice(8, 10)}{" "}
+              - {locatTime?.slice(0, 4)}
             </div>
           </div>
         </div>
@@ -81,6 +85,9 @@ const WeatherCard = ({ currentWeather, location }) => {
           <div className="row">
             <div className="col">
               <h1>Today</h1>
+              <h3>
+                Time: {locatTime?.slice(11, 13)}:{locatTime?.slice(14, 16)}
+              </h3>{" "}
             </div>
             <div className="col">
               <div className="row">
@@ -126,6 +133,32 @@ const WeatherCard = ({ currentWeather, location }) => {
           </div>
         </div>
       </div>
+      {hourlyData && (
+        <div
+          className=""
+          style={{
+            textAlign: "center",
+            paddingTop: "2rem",
+            marginTop: "2rem",
+            paddingBottom: "2rem",
+            background: "#AD36CB",
+          }}
+        >
+          {" "}
+          <h2 className="font-weight-light">Hourly Forecast</h2>
+          <div
+            className="card-container"
+            style={{
+              textAlign: "center",
+              background: "#AD36CB",
+            }}
+          >
+            <div className="card-scrollable" style={{ margin: "1rem" }}>
+              <HourlyCard hourlyData={hourlyData} monthName={monthName} />
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
