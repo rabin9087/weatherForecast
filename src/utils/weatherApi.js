@@ -1,5 +1,5 @@
 import axios from "axios"
-const apiKey = process.env.REACT_APP_APIKEY
+const apiKey = '4b3b6bcfc5mshe6c18f342066e4fp1051d5jsne951970e518d'
 
 
 const fetchWeatherAPI = async(city) => {
